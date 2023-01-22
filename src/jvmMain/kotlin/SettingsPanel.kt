@@ -16,7 +16,7 @@ const val MIN_PLANET_RADIUS = 300f
 const val MAX_PLANET_RADIUS = 550f
 
 const val MIN_MOON_RADIUS = 75f
-const val MAX_MOON_RADIUS = 250f
+const val MAX_MOON_RADIUS = 150f
 
 data class Settings(
     val planetRadius: Float = 400f,

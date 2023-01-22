@@ -11,6 +11,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import components.drawPlanet
+import components.orbit
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -20,23 +21,8 @@ fun Space(settings: Settings) {
     val infiniteTransition = rememberInfiniteTransition()
 
     // position on circle arc (Top = 270, Right = 360, Bottom = 90, Left = 180)
-    val angle by infiniteTransition.animateFloat(
-        initialValue = 0f,
-        targetValue = 359f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(10000, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart
-        )
-    )
-
-    val moonAngle by infiniteTransition.animateFloat(
-        initialValue = 0f,
-        targetValue = 359f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(2000, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart
-        )
-    )
+    val angle by infiniteTransition.orbit(10000)
+    val moonAngle by infiniteTransition.orbit(2000)
 
     MaterialTheme {
         Canvas(
