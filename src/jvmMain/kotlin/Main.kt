@@ -26,6 +26,7 @@ fun App() {
 fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
+        title = "Circle.exe",
         state = rememberWindowState(
             width = 1100.dp,
             height = 750.dp,

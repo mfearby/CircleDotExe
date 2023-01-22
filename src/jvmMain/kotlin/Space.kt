@@ -29,11 +29,14 @@ fun Space(settings: Settings) {
                 .background(Color.Black)
         ) {
             val middle = this.center
+
+            // The Sun
             drawPlanet(
                 color = Color(255, 184, 0),
                 offset = Offset(middle.x, middle.y)
             )
 
+            // Earth and the Moon
             drawPlanet(
                 angle = earthAngle,
                 distance = settings.planetDistance,
