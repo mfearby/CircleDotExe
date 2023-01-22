@@ -7,8 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.unit.dp
+import components.drawPlanet
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -29,14 +29,20 @@ fun Space(settings: Settings) {
                 .width(850.dp)
                 .background(Color.Black)
         ) {
-            drawCircle(
+            val middle = this.center
+            drawPlanet(
+                color = Color(255, 184, 0),
+                offset = Offset(middle.x, middle.y)
+            )
+
+            val earthOffset = Offset(
+                middle.x + offsetX,
+                middle.y + offsetY
+            )
+            drawPlanet(
                 color = Color.Blue,
-                radius = 75f,
-                center = Offset(
-                    this.center.x + offsetX,
-                    this.center.y + offsetY
-                ),
-                style = Fill,
+                radius = 25f,
+                offset = earthOffset
             )
         }
     }
