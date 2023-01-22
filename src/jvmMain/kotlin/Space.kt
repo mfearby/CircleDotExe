@@ -1,9 +1,11 @@
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -14,11 +16,21 @@ import kotlin.math.sin
 
 @Composable
 fun Space(settings: Settings) {
+    // Creates an [InfiniteTransition] instance for managing child animations.
+    val infiniteTransition = rememberInfiniteTransition()
+
     // position on circle (Top = 270, Right = 360, Bottom = 90, Left = 180)
-    val angle = 180
-    val rad = Math.toRadians(angle.toDouble())
+    val angle by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 359f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(5000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
+        )
+    )
 
     val radius = settings.planetRadius // distance from centre
+    val rad = Math.toRadians(angle.toDouble())
     val offsetX = radius * cos(rad).toFloat()
     val offsetY = radius * sin(rad).toFloat()
 
