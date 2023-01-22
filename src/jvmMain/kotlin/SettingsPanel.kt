@@ -13,10 +13,14 @@ import components.PropertySlider
 // Based on: https://github.com/antonarhipov/compose-for-desktop-samples/blob/main/src/main/kotlin/SettingsPanel.kt
 
 const val MIN_PLANET_RADIUS = 300f
-const val MAX_PLANET_RADIUS = 500f
+const val MAX_PLANET_RADIUS = 550f
+
+const val MIN_MOON_RADIUS = 75f
+const val MAX_MOON_RADIUS = 250f
 
 data class Settings(
-    val planetRadius: Float = 400f
+    val planetRadius: Float = 400f,
+    val moonRadius: Float = 100f
 )
 
 @Preview
@@ -40,6 +44,14 @@ fun SettingsPanel(settings: Settings, onValueChange: (Settings) -> Unit) {
                 MAX_PLANET_RADIUS,
                 "Planet radius"
             ) { newValue -> onValueChange(settings.copy(planetRadius = newValue)) }
+        }
+        item {
+            PropertySlider(
+                settings.moonRadius,
+                MIN_MOON_RADIUS,
+                MAX_MOON_RADIUS,
+                "Moon radius"
+            ) { newValue -> onValueChange(settings.copy(moonRadius = newValue)) }
         }
     }
 }

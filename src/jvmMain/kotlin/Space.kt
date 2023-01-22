@@ -19,7 +19,7 @@ fun Space(settings: Settings) {
     // Creates an [InfiniteTransition] instance for managing child animations.
     val infiniteTransition = rememberInfiniteTransition()
 
-    // position on circle (Top = 270, Right = 360, Bottom = 90, Left = 180)
+    // position on circle arc (Top = 270, Right = 360, Bottom = 90, Left = 180)
     val angle by infiniteTransition.animateFloat(
         initialValue = 0f,
         targetValue = 359f,
@@ -28,11 +28,6 @@ fun Space(settings: Settings) {
             repeatMode = RepeatMode.Restart
         )
     )
-
-    val radius = settings.planetRadius // distance from centre
-    val rad = Math.toRadians(angle.toDouble())
-    val offsetX = radius * cos(rad).toFloat()
-    val offsetY = radius * sin(rad).toFloat()
 
     MaterialTheme {
         Canvas(
@@ -47,6 +42,10 @@ fun Space(settings: Settings) {
                 offset = Offset(middle.x, middle.y)
             )
 
+            val radius = settings.planetRadius // distance from centre
+            val rad = Math.toRadians(angle.toDouble())
+            val offsetX = radius * cos(rad).toFloat()
+            val offsetY = radius * sin(rad).toFloat()
             val earthOffset = Offset(
                 middle.x + offsetX,
                 middle.y + offsetY
@@ -55,6 +54,20 @@ fun Space(settings: Settings) {
                 color = Color.Blue,
                 radius = 25f,
                 offset = earthOffset
+            )
+
+            val moonRadius = settings.moonRadius
+            val moonOffsetX = moonRadius * cos(rad).toFloat()
+            val moonOffsetY = moonRadius * sin(rad).toFloat()
+            val moonOffset = Offset(
+                earthOffset.x + moonOffsetX,
+                earthOffset.y + moonOffsetY
+            )
+
+            drawPlanet(
+                color = Color.White,
+                radius = 10f,
+                offset = moonOffset
             )
         }
     }
