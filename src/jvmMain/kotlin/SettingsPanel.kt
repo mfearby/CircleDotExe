@@ -12,15 +12,15 @@ import components.PropertySlider
 
 // Based on: https://github.com/antonarhipov/compose-for-desktop-samples/blob/main/src/main/kotlin/SettingsPanel.kt
 
-const val MIN_PLANET_RADIUS = 300f
-const val MAX_PLANET_RADIUS = 550f
+const val MIN_PLANET_DISTANCE = 300f
+const val MAX_PLANET_DISTANCE = 550f
 
-const val MIN_MOON_RADIUS = 75f
-const val MAX_MOON_RADIUS = 150f
+const val MIN_MOON_DISTANCE = 75f
+const val MAX_MOON_DISTANCE = 150f
 
 data class Settings(
-    val planetRadius: Float = 400f,
-    val moonRadius: Float = 100f
+    val planetDistance: Float = 400f,
+    val moonDistance: Float = 100f
 )
 
 @Preview
@@ -39,19 +39,19 @@ fun SettingsPanel(settings: Settings, onValueChange: (Settings) -> Unit) {
         }
         item {
             PropertySlider(
-                settings.planetRadius,
-                MIN_PLANET_RADIUS,
-                MAX_PLANET_RADIUS,
-                "Planet radius"
-            ) { newValue -> onValueChange(settings.copy(planetRadius = newValue)) }
+                settings.planetDistance,
+                MIN_PLANET_DISTANCE,
+                MAX_PLANET_DISTANCE,
+                "Planet distance"
+            ) { newValue -> onValueChange(settings.copy(planetDistance = newValue)) }
         }
         item {
             PropertySlider(
-                settings.moonRadius,
-                MIN_MOON_RADIUS,
-                MAX_MOON_RADIUS,
-                "Moon radius"
-            ) { newValue -> onValueChange(settings.copy(moonRadius = newValue)) }
+                settings.moonDistance,
+                MIN_MOON_DISTANCE,
+                MAX_MOON_DISTANCE,
+                "Moon distance"
+            ) { newValue -> onValueChange(settings.copy(moonDistance = newValue)) }
         }
     }
 }

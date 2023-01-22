@@ -1,4 +1,4 @@
-import androidx.compose.animation.core.*
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -12,16 +12,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import components.drawPlanet
 import components.orbit
-import kotlin.math.cos
-import kotlin.math.sin
 
 @Composable
 fun Space(settings: Settings) {
     // Creates an [InfiniteTransition] instance for managing child animations.
     val infiniteTransition = rememberInfiniteTransition()
 
-    // position on circle arc (Top = 270, Right = 360, Bottom = 90, Left = 180)
-    val angle by infiniteTransition.orbit(10000)
+    val earthAngle by infiniteTransition.orbit(10000)
     val moonAngle by infiniteTransition.orbit(2000)
 
     MaterialTheme {
@@ -37,33 +34,15 @@ fun Space(settings: Settings) {
                 offset = Offset(middle.x, middle.y)
             )
 
-            val radius = settings.planetRadius // distance from centre
-            val rad = Math.toRadians(angle.toDouble())
-            val offsetX = radius * cos(rad).toFloat()
-            val offsetY = radius * sin(rad).toFloat()
-            val earthOffset = Offset(
-                middle.x + offsetX,
-                middle.y + offsetY
-            )
             drawPlanet(
+                angle = earthAngle,
+                distance = settings.planetDistance,
                 color = Color.Blue,
                 radius = 25f,
-                offset = earthOffset
-            )
-
-            val moonRadius = settings.moonRadius
-            val moonRad = Math.toRadians(moonAngle.toDouble())
-            val moonOffsetX = moonRadius * cos(moonRad).toFloat()
-            val moonOffsetY = moonRadius * sin(moonRad).toFloat()
-            val moonOffset = Offset(
-                earthOffset.x + moonOffsetX,
-                earthOffset.y + moonOffsetY
-            )
-
-            drawPlanet(
-                color = Color.White,
-                radius = 10f,
-                offset = moonOffset
+                offset = Offset(middle.x, middle.y),
+                moonRadius = 10f,
+                moonAngle = moonAngle,
+                moonDistance = settings.moonDistance
             )
         }
     }
