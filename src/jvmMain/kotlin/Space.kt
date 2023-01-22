@@ -24,7 +24,16 @@ fun Space(settings: Settings) {
         initialValue = 0f,
         targetValue = 359f,
         animationSpec = infiniteRepeatable(
-            animation = tween(5000, easing = LinearEasing),
+            animation = tween(10000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
+        )
+    )
+
+    val moonAngle by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 359f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(2000, easing = LinearEasing),
             repeatMode = RepeatMode.Restart
         )
     )
@@ -57,8 +66,9 @@ fun Space(settings: Settings) {
             )
 
             val moonRadius = settings.moonRadius
-            val moonOffsetX = moonRadius * cos(rad).toFloat()
-            val moonOffsetY = moonRadius * sin(rad).toFloat()
+            val moonRad = Math.toRadians(moonAngle.toDouble())
+            val moonOffsetX = moonRadius * cos(moonRad).toFloat()
+            val moonOffsetY = moonRadius * sin(moonRad).toFloat()
             val moonOffset = Offset(
                 earthOffset.x + moonOffsetX,
                 earthOffset.y + moonOffsetY
