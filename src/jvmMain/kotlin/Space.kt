@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import components.PlanetConfig
 import components.drawPlanet
 import components.orbit
 
@@ -43,9 +44,7 @@ fun Space(settings: Settings) {
                 color = Color.Blue,
                 radius = 25f,
                 offset = Offset(middle.x, middle.y),
-                moonRadius = 10f,
-                moonAngle = moonAngle,
-                moonDistance = settings.moonDistance
+                moon = PlanetConfig(10f, moonAngle, settings.moonDistance)
             )
         }
     }

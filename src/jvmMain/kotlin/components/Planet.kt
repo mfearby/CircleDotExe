@@ -7,15 +7,19 @@ import androidx.compose.ui.graphics.drawscope.Fill
 import kotlin.math.cos
 import kotlin.math.sin
 
+data class PlanetConfig(
+    val radius: Float,
+    val angle: Float,
+    val distance: Float
+)
+
 fun DrawScope.drawPlanet(
     angle: Float = 0f,
     distance: Float = 0f,
     offset: Offset = Offset(0f, 0f),
     radius: Float = 70f,
     color: Color = Color.Blue,
-    moonRadius: Float? = null,
-    moonAngle: Float? = null,
-    moonDistance: Float? = null
+    moon: PlanetConfig? = null
 ) {
     val planetOffset = calculateOffset(offset, angle, distance)
 
@@ -26,11 +30,11 @@ fun DrawScope.drawPlanet(
         style = Fill
     )
 
-    if (moonRadius != null && moonAngle != null && moonDistance != null) {
-        val moonOffset = calculateOffset(planetOffset, moonAngle, moonDistance)
+    moon?.let {
+        val moonOffset = calculateOffset(planetOffset, it.angle, it.distance)
         drawCircle(
             color = Color.White,
-            radius = moonRadius,
+            radius = it.radius,
             center = moonOffset,
             style = Fill
         )
